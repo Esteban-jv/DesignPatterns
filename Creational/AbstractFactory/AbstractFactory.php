@@ -132,3 +132,36 @@ switch ($restaurant_type) {
 
 $client->getHamburger()->prepare();
 $client->getDrink()->pour();
+
+// Implementation
+require_once 'Components/Inputs/Input.php';
+require_once 'Components/Buttons/Button.php';
+require_once 'Components/Inputs/MacInput.php';
+require_once 'Components/Buttons/MacButton.php';
+require_once 'Components/Inputs/WindowsInput.php';
+require_once 'Components/Buttons/WindowsButton.php';
+require_once 'GUI.php';
+require_once 'WindowsGUI.php';
+require_once 'MacGUI.php';
+
+echo "<h2>Implementation</h2>\n";
+
+$clientGUI;
+$os = 'windows';
+
+switch ($os) {
+    case 'windows':
+        $clientGUI = new WindowsGUI();
+        break;
+    case 'mac':
+        $clientGUI = new MacGUI();
+        break;
+    default:
+        throw new Exception('Invalid OS');
+}
+
+$clientGUI->createButton('Click me', function() {
+    echo "Button clicked\n";
+})->render();
+echo "<br>\n";
+$clientGUI->createInput('Hello world')->render();
