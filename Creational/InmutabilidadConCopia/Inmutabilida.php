@@ -36,6 +36,7 @@ class CodeEditorState {
     }
 }
 
+// Ojo con este patrón. Si el historial de estados maneja objetos muy pesados puede ser malo en performance.
 class CodeEditorHistory {
     private Array $history = [];
     private int $currentIndex = -1;
@@ -58,7 +59,37 @@ class CodeEditorHistory {
         return null;
     }
 
+    public function undo(): ?CodeEditorState
+    {
+        if($this->currentIndex > 0)
+        {
+            $this->currentIndex--;
+            return $this->history[$this->currentIndex];
+        }
+        return null;
+    }
+
 }
 
-$editor = new CodeEditorState();
-$editor->_content = 'Hello World';
+function main()
+{
+    $history = new CodeEditorHistory();
+    $editorState = new CodeEditorState("console.log('hola mundo');", 2, false);
+
+    $history->save($editorState);
+    $editorState->displayState();
+
+    $editorState = $editorState->copyWith("console.log('hola mundo'); \n console.warn('new line');", 3, true);
+    $history->save($editorState);
+    $editorState->displayState();
+
+    $editorState = $editorState->copyWith(null, 5, null);
+    $history->save($editorState);
+    $editorState->displayState();
+
+    $editorState = $history->undo();
+//    $editorState = $history->redo();
+    $editorState->displayState();
+}
+
+main();
