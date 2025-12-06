@@ -30,16 +30,23 @@ class DragonBalls {
     }
 }
 
+/**
+ * No importa donde se genera la instancia, siempre será la misma
+ * Se guarda en una propiedad estática global
+ */
 echo "Singleton Pattern Example:\n <br>";
 
-$dragonBalls1 = DragonBalls::getInstance();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
-$dragonBalls1->collectBall();
+$gokuBalls = DragonBalls::getInstance();
+$gokuBalls->collectBall();
+$gokuBalls->collectBall();
+$gokuBalls->collectBall();
+$gokuBalls->collectBall();
+$gokuBalls->collectBall();
+
+echo "<br>";
+$vegetaBalls = DragonBalls::getInstance();
+$vegetaBalls->collectBall();
+$vegetaBalls->collectBall();
+$vegetaBalls->collectBall();
 
 ?>
